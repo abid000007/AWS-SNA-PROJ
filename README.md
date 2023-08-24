@@ -1,1 +1,2 @@
 # AWS-SNA-PROJ
+# JUST A SIMPLE PYTHON LABDA FILE TO TRIGGURE A NOTIFICATION WHENEVER Any file is uploaded on a certin bucket 
