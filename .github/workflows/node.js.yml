@@ -1,4 +1,4 @@
-name: Main Branch Deploy
+name: example-workflow
 
 on:
   push:
@@ -6,28 +6,20 @@ on:
       - main
 
 jobs:
-  deploy:
+  production-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Deploy to Staging
-        run: |
-          # Add your staging deployment steps here
-          echo "Deploying to staging..."
-          
-          # For demonstration purposes, you can replace this with your deployment command
-          echo "Deployment command: deploy-to-staging"
-    
-  deploy-to-production:
-    name: deployment
-    needs: deploy
-    runs-on: ubuntu-latest
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install Bats
+        run: npm install -g bats
+
     environment:
       name: permission
-      url: 'http://www.myapp.com'
-    steps:
-      - name: deploy
-        run: echo "I am deploying to the permission environment"
+      url: ${{ steps.step_id.outputs.url_output }}
