@@ -1,0 +1,28 @@
+name: Staging Process
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  staging-process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Ask for Permission
+        id: permission
+        run: |
+          echo "Do you want to deploy to the permission environment?"
+
+      - name: Deploy to Permission Environment
+        if: steps.permission.outputs.permission == 'yes'
+        run: |
+          # Add your deployment steps here
+          echo "Deploying to the permission environment..."
+
+          # For demonstration purposes, you can replace this with your deployment command
+          echo "Deployment command: deploy-to-permission-environment"
