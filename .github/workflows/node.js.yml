@@ -22,22 +22,12 @@ jobs:
           echo "Deployment command: deploy-to-staging"
     
   deploy-to-production:
+    name: deployment
     needs: deploy
     runs-on: ubuntu-latest
-
+    environment:
+      name: permission
+      url: 'http://www.myapp.com'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Check GitHub Approvals
-        id: approvals
-        run: echo "::set-output name=approvals::${{ github.event.before == '0000000000000000000000000000000000000000' }}"
-
-      - name: Deploy to Production
-        if: steps.approvals.outputs.approvals == 'true'
-        run: |
-          # Add your production deployment steps here
-          echo "Deploying to production..."
-          
-          # For demonstration purposes, you can replace this with your deployment command
-          echo "Deployment command: deploy-to-production"
+      - name: deploy
+        run: echo "I am deploying to the permission environment"
