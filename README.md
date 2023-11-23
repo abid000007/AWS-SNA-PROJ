@@ -1,3 +1,1 @@
-# AWS-SNA-PROJ
-# JUST A SIMPLE PYTHON LAMBDA FILE TO TRIGGURE A NOTIFICATION WHENEVER Any file is uploaded on a certain bucket :)))
- ..
+test
