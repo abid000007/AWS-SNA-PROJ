@@ -1,28 +1,43 @@
-name: Staging Process
+name: Main Branch Deploy
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 jobs:
-  staging-process:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Ask for Permission
-        id: permission
+      - name: Deploy to Staging
         run: |
-          echo "Do you want to deploy to the permission environment?"
-
-      - name: Deploy to Permission Environment
-        if: steps.permission.outputs.permission == 'yes'
-        run: |
-          # Add your deployment steps here
-          echo "Deploying to the permission environment..."
-
+          # Add your staging deployment steps here
+          echo "Deploying to staging..."
+          
           # For demonstration purposes, you can replace this with your deployment command
-          echo "Deployment command: deploy-to-permission-environment"
+          echo "Deployment command: deploy-to-staging"
+    
+  deploy-to-production:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check GitHub Approvals
+        id: approvals
+        run: echo "::set-output name=approvals::${{ github.event.before == '0000000000000000000000000000000000000000' }}"
+
+      - name: Deploy to Production
+        if: steps.approvals.outputs.approvals == 'true'
+        run: |
+          # Add your production deployment steps here
+          echo "Deploying to production..."
+          
+          # For demonstration purposes, you can replace this with your deployment command
+          echo "Deployment command: deploy-to-production"
